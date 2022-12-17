@@ -1,6 +1,10 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #define LIMIT 10
 
 /**
@@ -38,7 +42,7 @@ typedef struct instruction_s
 
 int stack[LIMIT];
 int top = -1;
-void op_push(int element);
+void op_push(const char *element);
 void op_pall(int i);
 void op_pint(int i);
 void op_pop(int element);
