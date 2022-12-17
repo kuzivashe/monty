@@ -56,7 +56,7 @@ typedef struct arguments
 {
 	char **argv;
 	FILE *file;
-	ssize_t *content;
+	ssize_t *counter;
 	int order;
 	char *line;
 	stack_t *stack;
@@ -70,6 +70,7 @@ void op_pall(stack_t **stack, unsigned int line_number);
 stack_t *addnode(stack_t **head, const int n);
 stack_t *addnode_end(stack_t **head, const int n);
 void cleaner(void);
+void monty(void);
 
 void free_stack(stack_t *stack);
 void op_pint(int i);
