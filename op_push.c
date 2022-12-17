@@ -2,14 +2,47 @@
 
 /**
   * op_push - adds an element into a stack
-  * @element: element added into the stack
+  * @stack: the stack
+  * @line_number: location of error in code
   * Return: nothing(void)
   */
-void op_push(const char *element)
+void op_push(stack_t **stack, unsigned line_number)
 {
-	int val;
+	int val, m = 0, flag = 0;
 
-	if (top == LIMIT - 1)
+	if (bus.arg)
+	{
+		if (bus.arg[0] == '-')
+			m++;
+		for (; bus.arg[m] != '\0'; m++)
+		{
+			if (bus.arg[m] > 57 || bus.arg[m] < 48)
+					flag = 1;
+		}
+		if (flag == 1)
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			fclose(bus.file);
+			free(bus.content);
+			free_stack(*stack);
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		fprintf(stderr, "L%d: usage push integer\n", line_number);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*stack);
+		exit(EXIT_FAILURE);
+	}
+	val = atoi(bus.arg);
+	if (bus.lifi == 0)
+		addnode(stack, val);
+	else
+		addqueue(stack, val);
+}
+/**	if (top == LIMIT - 1)
 	{
 		printf("Stack Overflow\n");
 		exit(EXIT_FAILURE);
@@ -28,4 +61,4 @@ void op_push(const char *element)
 		}
 	}
 	top++;
-}
+}*/

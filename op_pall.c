@@ -6,9 +6,21 @@
   * @i: index of the stack
   * Return: nothing(void)
   */
-void op_pall(int i)
+void op_pall(stack_t **stack, unsigned int n)
 {
-	if (top)
+	stack_t *h;
+	(void)n;
+
+	h = *stack;
+	if (h == NULL)
+		return;
+	while (h)
+	{
+		printf("%d\n", h->n);
+		h = h->next;
+	}
+}
+/*	if (top)
 	{
 		printf("Stack Underflow\n");
 		exit(EXIT_FAILURE);
@@ -22,4 +34,4 @@ void op_pall(int i)
 			printf("%d\n", stack[i]);
 		}
 	}
-}
+}*/
