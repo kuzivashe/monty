@@ -44,34 +44,45 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
-  * struct bus_s - variables -args, file, line content
-  * @arg: value
+  * struct arguments - values to be accessed by various functions
+  * @argv: name of the executable
+  * @counter: counts the number of lines
   * @file: pointer to monty file
-  * @content: line content
-  * @lifi: flag change stack <-> queue
-  *
-  * Description: carries values through the program
+  * @line: input line
+  * @stack: doubly linked linked list
+  * @order: FIFO, LIFO
   */
-typedef struct bus_s
+typedef struct arguments
 {
-	char *arg;
+	char **argv;
 	FILE *file;
-	char *content;
-	int lifi;
-} bus_t;
-extern bus_t bus;
-
-int stack[LIMIT];
-int top = -1;
+	ssize_t *content;
+	int order;
+	char *line;
+	stack_t *stack;
+} args_t;
+extern args_t args;
+/*int stack[LIMIT];
+int top = -1;*/
 void op_push(stack_t **stack, unsigned int line_number);
-void op_pall(stack_t **stack, unsigned int n);
-void addnode(stack_t **stack, int n);
-void addqueue(stack_t **stack, int n);
+void op_pall(stack_t **stack, unsigned int line_number);
+
+stack_t *addnode(stack_t **head, const int n);
+stack_t *addnode_end(stack_t **head, const int n);
+void cleaner(void);
+
 void free_stack(stack_t *stack);
 void op_pint(int i);
 void op_pop(int element);
 void op_swap(int a, int b);
 void op_add(int a, int b);
 void op_nop(void);
+
+/* linked list functions */
+void free_dlistint(stack_t *head);
+size_t print_dlistint(const stack_t *h);
+int check_string(char *s);
+/* datastruct-interpreter  */
+void stack(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */
